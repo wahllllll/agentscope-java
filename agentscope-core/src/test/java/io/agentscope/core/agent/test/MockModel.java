@@ -51,8 +51,13 @@ public class MockModel implements Model {
     private String errorMessage = "Mock error";
 
     /**
-     * Whether this mock reports {@code ToolChoice.Specific} support. Defaults to {@code true}
-     * since most models support it; only the few providers that don't override it to {@code false}.
+     * Whether this mock reports {@code ToolChoice.Specific} support.
+     *
+     * <p>Unlike {@link Model#supportsToolChoiceSpecific()} — which defaults to {@code false} so
+     * that unknown and custom endpoints are never sent a named {@code tool_choice} — this mock
+     * defaults to {@code true}, so tests that do not care about the distinction exercise the
+     * hard-constraint path. Tests covering the declared-unsupported case must opt out explicitly
+     * with {@link #setSupportsToolChoiceSpecific(boolean)}.
      */
     private boolean supportsToolChoiceSpecific = true;
 
